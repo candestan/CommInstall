@@ -7,7 +7,7 @@
     <ProjectGuid>{C778ACF7-D3BE-49DF-A71D-B496B4EC745C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CommInstallBuilder</RootNamespace>
-    <AssemblyName>CommInstallBuilder</AssemblyName>
+    <AssemblyName>CommInstall</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CommInstallBuilder.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

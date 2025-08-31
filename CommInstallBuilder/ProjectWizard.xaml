@@ -317,7 +317,8 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     
-                    <TextBlock Text="Version 1.0.0 - © 2024 CommInstall Team" 
+                    <TextBlock x:Name="VersionTextBlock"
+                               Text="Version 1.0.0 - © 2025 CommInstall Team" 
                                Foreground="{StaticResource TextSecondaryBrush}"
                                VerticalAlignment="Center"/>
                     

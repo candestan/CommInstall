@@ -21,6 +21,7 @@ namespace CommInstallBuilder
             InitializeComponent();
             LoadRecentProjects();
             UpdateRecentProjectsDisplay();
+            UpdateVersionInfo();
         }
 
         private void LoadRecentProjects()
@@ -71,6 +72,32 @@ namespace CommInstallBuilder
             {
                 RecentProjectsList.Visibility = System.Windows.Visibility.Collapsed;
                 NoRecentProjectsText.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void UpdateVersionInfo()
+        {
+            try
+            {
+                // AssemblyInfo'dan versiyon bilgisini al
+                var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                var versionString = version != null ? $"{version.Major}.{version.Minor}.{version.Build}" : "1.0.0";
+                
+                // XAML'da versiyon bilgisini güncelle
+                var versionTextBlock = this.FindName("VersionTextBlock") as System.Windows.Controls.TextBlock;
+                if (versionTextBlock != null)
+                {
+                    versionTextBlock.Text = $"Version {versionString} - © 2025 CommInstall Team";
+                }
+            }
+            catch
+            {
+                // Hata durumunda varsayılan versiyon kullan
+                var versionTextBlock = this.FindName("VersionTextBlock") as System.Windows.Controls.TextBlock;
+                if (versionTextBlock != null)
+                {
+                    versionTextBlock.Text = "Version 1.0.0 - © 2025 CommInstall Team";
+                }
             }
         }
 

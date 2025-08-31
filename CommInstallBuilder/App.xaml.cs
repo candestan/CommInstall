@@ -28,23 +28,15 @@ namespace CommInstallBuilder
             var splashScreen = new SplashScreen();
             splashScreen.Show();
             
-            // Show ProjectWizard after a delay (simulating splash screen)
-            var timer = new System.Windows.Threading.DispatcherTimer
+            // SplashScreen kapandığında ProjectWizard'ı göster
+            splashScreen.Closing += (s, args) =>
             {
-                Interval = TimeSpan.FromSeconds(4) // Match splash screen duration
-            };
-            
-            timer.Tick += (s, args) =>
-            {
-                timer.Stop();
-                splashScreen.Hide();
+                System.Diagnostics.Debug.WriteLine("App: SplashScreen closed, showing ProjectWizard...");
                 
                 var projectWizard = new ProjectWizard();
                 projectWizard.Show();
-                System.Diagnostics.Debug.WriteLine("App: ProjectWizard shown after timer.");
+                System.Diagnostics.Debug.WriteLine("App: ProjectWizard shown after SplashScreen closed.");
             };
-            
-            timer.Start();
         }
         
         private void LoadAndApplySettings()

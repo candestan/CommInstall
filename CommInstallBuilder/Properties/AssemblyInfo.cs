@@ -10,16 +10,16 @@ using System.Windows;
 [assembly: AssemblyTitle("CommInstallBuilder")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("LYSEP CORP")]
 [assembly: AssemblyProduct("CommInstallBuilder")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCopyright("Copyrighted By LYSEP CORP ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible özniteliğinin false olarak ayarlanması bu bütünleştirilmiş koddaki türleri
 // COM bileşenleri için görünmez yapar. Bu bütünleştirilmiş koddaki bir türe
 // erişmeniz gerekirse ComVisible özniteliğini o türde true olarak ayarlayın.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 //Yerelleştirilebilir uygulamalar oluşturmaya başlamak için,
 //dosyanızdaki <UICulture>CultureYouAreCodingWith</UICulture> özelliğini
