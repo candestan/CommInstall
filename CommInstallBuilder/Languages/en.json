@@ -1,0 +1,107 @@
+{
+  "Language": "English",
+  "LanguageCode": "en",
+  "Translations": {
+    "Common": {
+      "Yes": "Yes",
+      "No": "No",
+      "OK": "OK",
+      "Cancel": "Cancel",
+      "Save": "Save",
+      "Load": "Load",
+      "Delete": "Delete",
+      "Edit": "Edit",
+      "Add": "Add",
+      "Remove": "Remove",
+      "Browse": "Browse",
+      "Select": "Select",
+      "Create": "Create",
+      "Open": "Open",
+      "Close": "Close",
+      "Exit": "Exit",
+      "Settings": "Settings",
+      "Help": "Help",
+      "About": "About",
+      "Version": "Version",
+      "Error": "Error",
+      "Warning": "Warning",
+      "Info": "Information",
+      "Success": "Success"
+    },
+    "MainWindow": {
+      "Title": "CommInstall Builder",
+      "FileModule": "File Module",
+      "RegistryModule": "Registry Module",
+      "ExtensionModule": "Extension Module",
+      "ShortcutModule": "Shortcut Module",
+      "EulaModule": "EULA Module",
+      "UninstallModule": "Uninstall Module",
+      "AutoStartModule": "Auto Start Module"
+    },
+    "Modules": {
+      "FileModule": {
+        "Title": "File Installation",
+        "Description": "Configure files to be installed"
+      },
+      "RegistryModule": {
+        "Title": "Registry Configuration",
+        "Description": "Configure registry keys and values"
+      },
+      "ExtensionModule": {
+        "Title": "File Extensions",
+        "Description": "Configure file extension associations"
+      },
+      "ShortcutModule": {
+        "Title": "Shortcuts",
+        "Description": "Configure desktop and start menu shortcuts"
+      },
+      "EulaModule": {
+        "Title": "EULA",
+        "Description": "Configure End User License Agreement"
+      },
+      "UninstallModule": {
+        "Title": "Uninstall",
+        "Description": "Configure uninstall options"
+      },
+      "AutoStartModule": {
+        "Title": "Auto Start",
+        "Description": "Configure auto-start options"
+      }
+    },
+    "ProjectWizard": {
+      "Title": "CommInstall Project Wizard",
+      "Welcome": "Welcome to CommInstall Builder",
+      "CreateNewProject": "Create New Project",
+      "OpenExistingProject": "Open Existing Project",
+      "RecentProjects": "Recent Projects",
+      "NoRecentProjects": "No recent projects found"
+    },
+    "SplashScreen": {
+      "Loading": "Loading...",
+      "Initializing": "Initializing...",
+      "LoadingModules": "Loading modules...",
+      "Ready": "Ready!"
+    },
+    "Settings": {
+      "Title": "Settings",
+      "Language": "Language",
+      "Theme": "Theme",
+      "Dark": "Dark",
+      "Light": "Light",
+      "AutoSave": "Auto Save",
+      "CheckUpdates": "Check for Updates",
+      "ShowTooltips": "Show Tooltips",
+      "EnableAnimations": "Enable Animations",
+      "GitHubUsername": "GitHub Username",
+      "Save": "Save Settings",
+      "Reset": "Reset to Defaults"
+    },
+    "Messages": {
+      "ProjectCreated": "Project created successfully!",
+      "ProjectOpened": "Project opened successfully!",
+      "SettingsSaved": "Settings saved successfully!",
+      "ErrorOccurred": "An error occurred",
+      "ConfirmReset": "Are you sure you want to reset all settings to default values?"
+    }
+  }
+}

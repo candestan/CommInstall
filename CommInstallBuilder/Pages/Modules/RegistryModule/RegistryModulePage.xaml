@@ -1,0 +1,290 @@
+<UserControl x:Class="CommInstallBuilder.Pages.Modules.RegistryModule.RegistryModulePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource PrimaryBrush}"
+                                        Margin="-16,-16,-16,0"
+                                        Padding="16,8">
+                                    <TextBlock Text="{TemplateBinding Header}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               FontSize="14"/>
+                                </Border>
+                                
+                                <ContentPresenter Grid.Row="1" 
+                                                Margin="0,8,0,0"
+                                                Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="🔧 Registry Keys Configuration" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource TextBrush}"/>
+                
+                <!-- Registry Root Selection -->
+                <GroupBox Header="Registry Root" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="Root Key:" 
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <ComboBox x:Name="RootKeyComboBox" 
+                                  Grid.Column="1"
+                                  SelectedIndex="0"
+                                  Background="{DynamicResource CardBrush}"
+                                  Foreground="{DynamicResource TextBrush}"
+                                  BorderBrush="{DynamicResource BorderBrush}">
+                            <ComboBoxItem Content="HKEY_LOCAL_MACHINE" Tag="HKLM"/>
+                            <ComboBoxItem Content="HKEY_CURRENT_USER" Tag="HKCU"/>
+                            <ComboBoxItem Content="HKEY_CLASSES_ROOT" Tag="HKCR"/>
+                            <ComboBoxItem Content="HKEY_USERS" Tag="HKU"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+                
+                <!-- Registry Keys -->
+                <GroupBox Header="Registry Keys" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBox x:Name="KeyPathTextBox" 
+                                     Grid.Column="0"
+                                     Text="Software\MyApp"
+                                     Margin="0,0,10,0"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"/>
+                            
+                            <Button x:Name="AddKeyButton" 
+                                    Grid.Column="1"
+                                    Content="Add Key"
+                                    Padding="15,5"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Click="AddKeyButton_Click"/>
+                        </Grid>
+                        
+                        <ListBox x:Name="KeysListBox" 
+                                 Height="150"
+                                 Background="{DynamicResource CardBrush}"
+                                 BorderBrush="{DynamicResource BorderBrush}"
+                                 Foreground="{DynamicResource TextBrush}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding KeyPath}" Grid.Column="0"/>
+                                        <Button Content="❌" 
+                                                Grid.Column="1"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="Red"
+                                                Click="RemoveKey_Click"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                        <TextBlock Text="Selected Keys: 0" 
+                                   x:Name="KeyCountText"
+                                   Margin="0,10,0,0"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Registry Values -->
+                <GroupBox Header="Registry Values" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBox x:Name="ValueNameTextBox" 
+                                     Grid.Column="0"
+                                     Text="Default"
+                                     Margin="0,0,10,0"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"/>
+                            
+                            <Button x:Name="AddValueButton" 
+                                    Grid.Column="1"
+                                    Content="Add Value"
+                                    Padding="15,5"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Click="AddValueButton_Click"/>
+                        </Grid>
+                        
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Value Type:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <ComboBox x:Name="ValueTypeComboBox" 
+                                      Grid.Column="1"
+                                      SelectedIndex="0"
+                                      Background="{DynamicResource CardBrush}"
+                                      Foreground="{DynamicResource TextBrush}"
+                                      BorderBrush="{DynamicResource BorderBrush}">
+                                <ComboBoxItem Content="String (REG_SZ)" Tag="REG_SZ"/>
+                                <ComboBoxItem Content="Binary (REG_BINARY)" Tag="REG_BINARY"/>
+                                <ComboBoxItem Content="DWORD (REG_DWORD)" Tag="REG_DWORD"/>
+                                <ComboBoxItem Content="QWORD (REG_QWORD)" Tag="REG_QWORD"/>
+                                <ComboBoxItem Content="Multi-String (REG_MULTI_SZ)" Tag="REG_MULTI_SZ"/>
+                                <ComboBoxItem Content="Expandable String (REG_EXPAND_SZ)" Tag="REG_EXPAND_SZ"/>
+                            </ComboBox>
+                        </Grid>
+                        
+                        <TextBox x:Name="ValueDataTextBox" 
+                                 Text="MyApp Value"
+                                 Margin="0,0,0,10"
+                                 Background="{DynamicResource CardBrush}"
+                                 Foreground="{DynamicResource TextBrush}"
+                                 BorderBrush="{DynamicResource BorderBrush}"/>
+                        
+                        <ListBox x:Name="ValuesListBox" 
+                                 Height="150"
+                                 Background="{DynamicResource CardBrush}"
+                                 BorderBrush="{DynamicResource BorderBrush}"
+                                 Foreground="{DynamicResource TextBrush}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Type}" FontSize="11" Opacity="0.7"/>
+                                            <TextBlock Text="{Binding Data}" FontSize="11" Opacity="0.7"/>
+                                        </StackPanel>
+                                        <Button Content="❌" 
+                                                Grid.Column="1"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="Red"
+                                                Click="RemoveValue_Click"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                        <TextBlock Text="Selected Values: 0" 
+                                   x:Name="ValueCountText"
+                                   Margin="0,10,0,0"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Options -->
+                <GroupBox Header="Registry Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="CreateBackupCheckBox" 
+                                  Content="Create registry backup before modification"
+                                  Margin="0,5"
+                                  Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <CheckBox x:Name="RecursiveDeleteCheckBox" 
+                                  Content="Recursively delete registry keys on uninstall"
+                                  Margin="0,5"
+                                  Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <CheckBox x:Name="ForceWriteCheckBox" 
+                                  Content="Force write registry values (overwrite existing)"
+                                  Margin="0,5"
+                                  Foreground="{DynamicResource TextBrush}"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Summary -->
+                <GroupBox Header="Registry Summary" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock x:Name="SummaryText"
+                                   Text="No registry configuration set."
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,364 @@
+<UserControl x:Class="CommInstallBuilder.Pages.Modules.FileModule.FileModulePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource PrimaryBrush}"
+                                        Margin="-16,-16,-16,0"
+                                        Padding="16,8">
+                                    <TextBlock Text="{TemplateBinding Header}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               FontSize="14"/>
+                                </Border>
+                                
+                                <ContentPresenter Grid.Row="1" 
+                                                Margin="0,8,0,0"
+                                                Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="📁 File Installation Configuration" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource TextBrush}"/>
+                
+                <!-- Source Files -->
+                <GroupBox Header="Source Files" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Source Folder:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="SourceFolderTextBox" 
+                                     Grid.Column="1"
+                                     Text="Select source folder..."
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"
+                                     IsReadOnly="True"/>
+                            
+                            <Button Content="Browse" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Select the folder containing files to be installed" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Installation Directory -->
+                <GroupBox Header="Installation Directory" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Target:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="InstallDirectoryTextBox" 
+                                     Grid.Column="1"
+                                     Text="%ProgramFiles%\CommInstall"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"/>
+                            
+                            <Button Content="Browse" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Use %ProgramFiles%, %ProgramFiles(x86)%, or %APPDATA% for standard locations" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- File Options -->
+                <GroupBox Header="File Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="CreateDirectoriesCheckBox" 
+                                  Content="Create directories if they don't exist" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="OverwriteExistingCheckBox" 
+                                  Content="Overwrite existing files" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="PreservePermissionsCheckBox" 
+                                  Content="Preserve file permissions" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="VerifyFilesCheckBox" 
+                                  Content="Verify files after installation" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="CreateBackupCheckBox" 
+                                  Content="Create backup of existing files" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- File Filters -->
+                <GroupBox Header="File Filters" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Include:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="IncludeFilterTextBox" 
+                                     Grid.Column="1"
+                                     Text="*.exe, *.dll, *.txt, *.ini"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"/>
+                            
+                            <Button Content="Add Filter" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Exclude:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="ExcludeFilterTextBox" 
+                                     Grid.Column="1"
+                                     Text="*.tmp, *.log, *.bak"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"/>
+                            
+                            <Button Content="Add Filter" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Use wildcards: *.ext for all files with extension, ? for single character" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Advanced Options -->
+                <GroupBox Header="Advanced Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="InstallForAllUsersCheckBox" 
+                                  Content="Install for all users (requires admin)" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="CreateLogFileCheckBox" 
+                                  Content="Create installation log file" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="ShowProgressCheckBox" 
+                                  Content="Show file copy progress" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="SkipReadOnlyCheckBox" 
+                                  Content="Skip read-only files" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="CreateShortcutsCheckBox" 
+                                  Content="Create shortcuts for executable files" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- File List Preview -->
+                <GroupBox Header="File List Preview" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Files that will be installed:" 
+                                   FontSize="14" 
+                                   FontWeight="Medium"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <Border Background="{DynamicResource CardBrush}" 
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                Padding="12"
+                                Height="200">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock x:Name="FileListTextBlock" 
+                                           Text="No source folder selected. Please browse and select a source folder to see the file list here." 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </ScrollViewer>
+                        </Border>
+                        
+                        <TextBlock Text="This preview shows files that will be installed based on current filters" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Summary -->
+                <GroupBox Header="File Installation Summary" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="📋 Current Configuration:" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <TextBlock x:Name="FileSummaryTextBlock" 
+                                   Text="• Source folder: Not selected&#x0a;• Target directory: %ProgramFiles%\\CommInstall&#x0a;• Create directories: Yes&#x0a;• Overwrite existing: Yes&#x0a;• File verification: Yes&#x0a;• Progress display: Yes&#x0a;&#x0a;No files configured for installation yet." 
+                                   FontSize="14" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

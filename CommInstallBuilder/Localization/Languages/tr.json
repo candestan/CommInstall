@@ -1,0 +1,56 @@
+{
+  "Common": {
+    "Save": "Kaydet",
+    "Cancel": "İptal",
+    "OK": "Tamam",
+    "Error": "Hata",
+    "Success": "Başarılı",
+    "Build": "Derle",
+    "SaveProject": "Projeyi Kaydet",
+    "LoadProject": "Proje Yükle",
+    "Settings": "Ayarlar",
+    "CreateProject": "Proje Oluştur",
+    "OpenProject": "Proje Aç",
+    "RecentProjects": "Son Projeler",
+    "NoRecentProjects": "Son proje yok"
+  },
+  "MainWindow": {
+    "Ready": "Hazır - Kurulum yapılandırmak için modülleri seçin",
+    "FileInstallation": "Dosya Kurulum Yapılandırması",
+    "RegistryKeys": "Kayıt Defteri Anahtarları Yapılandırması",
+    "FileModule": "Dosya Kurulumu",
+    "RegistryModule": "Kayıt Defteri Anahtarları",
+    "ExtensionModule": "Dosya Uzantıları",
+    "ShortcutModule": "Kısayollar",
+    "EulaModule": "EULA/Lisans",
+    "UninstallModule": "Kaldırma",
+    "AutoStartModule": "Otomatik Başlatma"
+  },
+  "Settings": {
+    "Settings": "Ayarlar",
+    "SaveSettings": "Ayarları Kaydet",
+    "ResetToDefault": "Varsayılana Sıfırla",
+    "Language": "Dil",
+    "Theme": "Tema",
+    "AutoSave": "Otomatik Kaydet",
+    "CheckUpdates": "Güncellemeleri Kontrol Et",
+    "ShowTooltips": "İpucu Göster",
+    "EnableAnimations": "Animasyonları Etkinleştir",
+    "GitHubUsername": "GitHub Kullanıcı Adı"
+  },
+  "ProjectWizard": {
+    "ProjectWizard": "CommInstall Builder - Proje Sihirbazı",
+    "CreateNewProject": "Yeni Proje Oluştur",
+    "OpenExistingProject": "Mevcut Projeyi Aç",
+    "ProjectName": "Proje Adı",
+    "ProjectPath": "Proje Yolu",
+    "Browse": "Gözat",
+    "Create": "Oluştur",
+    "Open": "Aç"
+  },
+  "SplashScreen": {
+    "Loading": "Yükleniyor...",
+    "Initializing": "Başlatılıyor...",
+    "Ready": "Hazır!"
+  }
+}

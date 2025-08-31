@@ -1,0 +1,56 @@
+{
+  "Common": {
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "OK": "OK",
+    "Error": "Error",
+    "Success": "Success",
+    "Build": "Build",
+    "SaveProject": "Save Project",
+    "LoadProject": "Load Project",
+    "Settings": "Settings",
+    "CreateProject": "Create Project",
+    "OpenProject": "Open Project",
+    "RecentProjects": "Recent Projects",
+    "NoRecentProjects": "No recent projects"
+  },
+  "MainWindow": {
+    "Ready": "Ready - Select modules to configure your installer",
+    "FileInstallation": "File Installation Configuration",
+    "RegistryKeys": "Registry Keys Configuration",
+    "FileModule": "File Installation",
+    "RegistryModule": "Registry Keys",
+    "ExtensionModule": "File Extensions",
+    "ShortcutModule": "Shortcuts",
+    "EulaModule": "EULA/License",
+    "UninstallModule": "Uninstall",
+    "AutoStartModule": "Auto-Start"
+  },
+  "Settings": {
+    "Settings": "Settings",
+    "SaveSettings": "Save Settings",
+    "ResetToDefault": "Reset to Default",
+    "Language": "Language",
+    "Theme": "Theme",
+    "AutoSave": "Auto Save",
+    "CheckUpdates": "Check for Updates",
+    "ShowTooltips": "Show Tooltips",
+    "EnableAnimations": "Enable Animations",
+    "GitHubUsername": "GitHub Username"
+  },
+  "ProjectWizard": {
+    "ProjectWizard": "CommInstall Builder - Project Wizard",
+    "CreateNewProject": "Create New Project",
+    "OpenExistingProject": "Open Existing Project",
+    "ProjectName": "Project Name",
+    "ProjectPath": "Project Path",
+    "Browse": "Browse",
+    "Create": "Create",
+    "Open": "Open"
+  },
+  "SplashScreen": {
+    "Loading": "Loading...",
+    "Initializing": "Initializing...",
+    "Ready": "Ready!"
+  }
+}

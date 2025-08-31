@@ -1,0 +1,312 @@
+<UserControl x:Class="CommInstallBuilder.Pages.Modules.AutoStartModule.AutoStartModulePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource PrimaryBrush}"
+                                        Margin="-16,-16,-16,0"
+                                        Padding="16,8">
+                                    <TextBlock Text="{TemplateBinding Header}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               FontSize="14"/>
+                                </Border>
+                                
+                                <ContentPresenter Grid.Row="1" 
+                                                Margin="0,8,0,0"
+                                                Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="🚀 Auto-Start Configuration" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource TextBrush}"/>
+                
+                <!-- Auto-Start Options -->
+                <GroupBox Header="Auto-Start Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="EnableAutoStartCheckBox" 
+                                  Content="Enable auto-start functionality" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="StartWithWindowsCheckBox" 
+                                  Content="Start application with Windows" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="StartMinimizedCheckBox" 
+                                  Content="Start minimized to system tray" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="ShowStartupNotificationCheckBox" 
+                                  Content="Show notification when starting" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="DelayStartupCheckBox" 
+                                  Content="Delay startup to improve boot time" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Startup Method -->
+                <GroupBox Header="Startup Method" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <RadioButton x:Name="RegistryStartupRadioButton" 
+                                     Content="Registry (Recommended)" 
+                                     FontSize="14" 
+                                     Foreground="{DynamicResource TextBrush}"
+                                     Margin="0,8"
+                                     IsChecked="True"/>
+                        
+                        <RadioButton x:Name="StartupFolderRadioButton" 
+                                     Content="Startup Folder" 
+                                     FontSize="14" 
+                                     Foreground="{DynamicResource TextBrush}"
+                                     Margin="0,8"/>
+                        
+                        <RadioButton x:Name="TaskSchedulerRadioButton" 
+                                     Content="Task Scheduler" 
+                                     FontSize="14" 
+                                     Foreground="{DynamicResource TextBrush}"
+                                     Margin="0,8"/>
+                        
+                        <TextBlock Text="Registry method is most reliable and works with all Windows versions" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Startup Delay -->
+                <GroupBox Header="Startup Delay" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Delay:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <Slider x:Name="StartupDelaySlider" 
+                                    Grid.Column="1"
+                                    Minimum="0" 
+                                    Maximum="60" 
+                                    Value="5"
+                                    TickFrequency="5"
+                                    TickPlacement="BottomRight"
+                                    Margin="0,0,10,0"/>
+                            
+                            <TextBlock x:Name="DelayValueTextBlock" 
+                                       Grid.Column="2"
+                                       Text="5 seconds" 
+                                       FontSize="14" 
+                                       Foreground="{DynamicResource TextBrush}"
+                                       MinWidth="80"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Delay startup to avoid interfering with other startup programs" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Startup Conditions -->
+                <GroupBox Header="Startup Conditions" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="StartOnlyIfUserLoggedInCheckBox" 
+                                  Content="Start only if user is logged in" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="StartForAllUsersCheckBox" 
+                                  Content="Start for all users (requires admin)" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="StartInSafeModeCheckBox" 
+                                  Content="Start in safe mode" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="StartWithNetworkCheckBox" 
+                                  Content="Wait for network connection" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Application Path -->
+                <GroupBox Header="Application Path" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Path:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="ApplicationPathTextBox" 
+                                     Grid.Column="1"
+                                     Text="%INSTALLDIR%\CommInstall.exe"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"/>
+                            
+                            <Button Content="Browse" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Use %INSTALLDIR% for the installation directory" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Startup Arguments -->
+                <GroupBox Header="Startup Arguments" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Arguments:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="StartupArgumentsTextBox" 
+                                     Grid.Column="1"
+                                     Text="--autostart --minimized"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Command line arguments to pass to the application on startup" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Summary -->
+                <GroupBox Header="Auto-Start Configuration Summary" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="📋 Current Configuration:" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <TextBlock x:Name="AutoStartSummaryTextBlock" 
+                                   Text="• Auto-start enabled&#x0a;• Starts with Windows&#x0a;• Uses Registry method&#x0a;• 5 second startup delay&#x0a;• Starts only when user logged in&#x0a;&#x0a;Application: %INSTALLDIR%\CommInstall.exe&#x0a;Arguments: --autostart --minimized" 
+                                   FontSize="14" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

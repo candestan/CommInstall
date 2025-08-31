@@ -1,12 +1,576 @@
-﻿<Window x:Class="CommInstallBuilder.MainWindow"
+<Window x:Class="CommInstallBuilder.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommInstallBuilder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="CommInstall Builder" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResize"
+        Background="{DynamicResource WindowBackgroundBrush}">
+    
+    <Window.Resources>
+        <!-- Modern Purple Color Scheme -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#7C3AED"/>
+        <SolidColorBrush x:Key="PrimaryLightBrush" Color="#A78BFA"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#5B21B6"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#8B5CF6"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#10B981"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#F59E0B"/>
+        <SolidColorBrush x:Key="ErrorBrush" Color="#EF4444"/>
         
+        <!-- Dark Theme Colors -->
+        <SolidColorBrush x:Key="DarkBackgroundBrush" Color="#121212"/>
+        <SolidColorBrush x:Key="DarkSurfaceBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="DarkCardBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="DarkBorderBrush" Color="#404040"/>
+        <SolidColorBrush x:Key="DarkTextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DarkTextSecondaryBrush" Color="#B3FFFFFF"/>
+        
+        <!-- Light Theme Colors -->
+        <SolidColorBrush x:Key="LightBackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="LightSurfaceBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="LightCardBrush" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="LightBorderBrush" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="LightTextBrush" Color="#212121"/>
+        <SolidColorBrush x:Key="LightTextSecondaryBrush" Color="#757575"/>
+        
+        <!-- Current Theme Brushes (Default: DARK) -->
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#121212"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="CardBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#404040"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B3FFFFFF"/>
+        
+        <!-- Title Bar Gradient -->
+        <LinearGradientBrush x:Key="TitleBarGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#7C3AED" Offset="0"/>
+            <GradientStop Color="#5B21B6" Offset="0.5"/>
+            <GradientStop Color="#3B0F6B" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <!-- Title Bar Button Style -->
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                x:Name="Border">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#40FFFFFF"/>
+                                <Setter TargetName="Border" Property="Background" Value="#40FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#60FFFFFF"/>
+                                <Setter TargetName="Border" Property="Background" Value="#60FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Close Button Style -->
+        <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E81123"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#C50E1F"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Button Styles -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryLightBrush}"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Card Style -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource CardBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" 
+                                    Direction="270" 
+                                    ShadowDepth="2" 
+                                    Opacity="0.1" 
+                                    BlurRadius="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Module Item Style -->
+        <Style x:Key="ModuleItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" 
+                                    Direction="270" 
+                                    ShadowDepth="1" 
+                                    Opacity="0.05" 
+                                    BlurRadius="4"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource CardBrush}"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" 
+                                            Direction="270" 
+                                            ShadowDepth="2" 
+                                            Opacity="0.15" 
+                                            BlurRadius="8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Custom Title Bar -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource TitleBarGradient}"
+                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- App Title -->
+                <StackPanel Grid.Column="0" 
+                           Orientation="Horizontal" 
+                           VerticalAlignment="Center" 
+                           Margin="12,0">
+                    <TextBlock Text="🚀" 
+                             FontSize="16" 
+                             VerticalAlignment="Center"
+                             Margin="0,0,8,0"/>
+                    <TextBlock Text="CommInstall Builder" 
+                             FontSize="14" 
+                             FontWeight="SemiBold" 
+                             Foreground="White"
+                             VerticalAlignment="Center"/>
+                    <TextBlock Text="v1.0.0" 
+                             FontSize="11" 
+                             Foreground="#B3FFFFFF"
+                             VerticalAlignment="Center"
+                             Margin="8,0,0,0"/>
+                </StackPanel>
+                
+                <!-- Window Control Buttons -->
+                <StackPanel Grid.Column="1" 
+                           Orientation="Horizontal">
+                    <Button x:Name="MinimizeButton" 
+                           Content="─" 
+                           Style="{StaticResource TitleBarButtonStyle}"
+                           Click="MinimizeButton_Click"/>
+                    <Button x:Name="MaximizeButton" 
+                           Content="□" 
+                           Style="{StaticResource TitleBarButtonStyle}"
+                           Click="MaximizeButton_Click"/>
+                    <Button x:Name="CloseButton" 
+                           Content="✕" 
+                           Style="{StaticResource CloseButtonStyle}"
+                           Click="CloseButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Top Toolbar -->
+        <Border Grid.Row="1" 
+                Background="{DynamicResource SurfaceBrush}" 
+                BorderBrush="{DynamicResource BorderBrush}" 
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- App Title -->
+                <StackPanel Grid.Column="0" 
+                           Orientation="Horizontal" 
+                           VerticalAlignment="Center" 
+                           Margin="20,0">
+                    <TextBlock Text="CommInstall Builder" 
+                             FontSize="20" 
+                             FontWeight="Bold" 
+                             Foreground="{DynamicResource TextBrush}"
+                             VerticalAlignment="Center"/>
+                    <TextBlock Text="v1.0.0" 
+                             FontSize="12" 
+                             Foreground="{DynamicResource TextSecondaryBrush}"
+                             VerticalAlignment="Center"
+                             Margin="10,0,0,0"/>
+                </StackPanel>
+                
+                <!-- Toolbar Buttons -->
+                <StackPanel Grid.Column="1" 
+                           Orientation="Horizontal" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,20,0">
+                    <Button x:Name="SettingsButton" 
+                           Content="⚙️ Settings" 
+                           Margin="0,0,10,0"
+                           Click="SettingsButton_Click"/>
+                    
+                    <Button x:Name="SaveButton" 
+                           Content="Save Project" 
+                           Margin="0,0,10,0"
+                           Click="SaveButton_Click"/>
+                    
+                    <Button x:Name="LoadButton" 
+                           Content="Load Project" 
+                           Margin="0,0,10,0"
+                           Click="LoadButton_Click"/>
+                    
+                    <Button x:Name="BuildButton" 
+                           Content="Build Installer" 
+                           Background="{DynamicResource SuccessBrush}"
+                           Click="BuildButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="2" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Panel - Module Navigation -->
+            <Border Grid.Column="0" 
+                   Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="Installer Modules" 
+                             FontSize="16" 
+                             FontWeight="Bold" 
+                             Foreground="{DynamicResource TextBrush}"
+                             Margin="0,0,0,16"/>
+                    
+                    <!-- Module List -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Basic Modules -->
+                            <TextBlock Text="Basic Features" 
+                                     FontSize="12" 
+                                     FontWeight="SemiBold" 
+                                     Foreground="{DynamicResource TextSecondaryBrush}"
+                                     Margin="0,16,0,8"/>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="FileModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="📁" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="File Installation" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="FileModuleCheckBox" 
+                                            IsChecked="True"
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="RegistryModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="🔧" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="Registry Keys" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="RegistryModuleCheckBox" 
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="ExtensionModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="🔗" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="File Extensions" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="ExtensionModuleCheckBox" 
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <!-- Advanced Modules -->
+                            <TextBlock Text="Advanced Features" 
+                                     FontSize="12" 
+                                     FontWeight="SemiBold" 
+                                     Foreground="{DynamicResource TextSecondaryBrush}"
+                                     Margin="0,24,0,8"/>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="ShortcutModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="📌" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="Shortcuts" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="ShortcutModuleCheckBox" 
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="EulaModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="📄" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="EULA/License" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="EulaModuleCheckBox" 
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="UninstallModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="🗑️" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="Uninstall Support" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="UninstallModuleCheckBox" 
+                                            IsChecked="True"
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource ModuleItemStyle}" 
+                                   x:Name="AutoStartModuleCard"
+                                   MouseLeftButtonDown="ModuleCard_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                             Text="🚀" 
+                                             FontSize="16" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             Text="Auto-Start" 
+                                             FontWeight="Medium" 
+                                             Foreground="{DynamicResource TextBrush}"/>
+                                    <CheckBox Grid.Column="2" 
+                                            x:Name="AutoStartModuleCheckBox" 
+                                            VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+            
+            <!-- Right Panel - Module Configuration -->
+            <Border Grid.Column="2" 
+                   Style="{StaticResource CardStyle}">
+    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Module Title -->
+                    <TextBlock Grid.Row="0" 
+                             x:Name="ModuleTitleTextBlock"
+                             Text="Select a module to configure" 
+                             FontSize="18" 
+                             FontWeight="Bold" 
+                             Foreground="{DynamicResource TextBrush}"
+                             Margin="0,0,0,20"/>
+                    
+                    <!-- Module Content -->
+                    <ScrollViewer Grid.Row="1" 
+                                 VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="ModuleContentPanel">
+                            <!-- Default Content -->
+                            <TextBlock Text="Welcome to CommInstall Builder!" 
+                                     FontSize="16" 
+                                     Foreground="{DynamicResource TextSecondaryBrush}"
+                                     TextWrapping="Wrap"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Margin="0,100,0,0"/>
+                            <TextBlock Text="Select a module from the left panel to configure your installer." 
+                                     FontSize="14" 
+                                     Foreground="{DynamicResource TextSecondaryBrush}"
+                                     TextWrapping="Wrap"
+                                     HorizontalAlignment="Center"
+                                     Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <Border Grid.Row="3" 
+                Background="{DynamicResource SurfaceBrush}" 
+                BorderBrush="{DynamicResource BorderBrush}" 
+                BorderThickness="0,1,0,0">
+            <Grid>
+                <TextBlock x:Name="StatusTextBlock" 
+                         Text="Ready" 
+                         Foreground="{DynamicResource TextSecondaryBrush}"
+                         VerticalAlignment="Center"
+                         Margin="20,0"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

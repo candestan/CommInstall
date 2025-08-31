@@ -1,0 +1,107 @@
+{
+  "Language": "Türkçe",
+  "LanguageCode": "tr",
+  "Translations": {
+    "Common": {
+      "Yes": "Evet",
+      "No": "Hayır",
+      "OK": "Tamam",
+      "Cancel": "İptal",
+      "Save": "Kaydet",
+      "Load": "Yükle",
+      "Delete": "Sil",
+      "Edit": "Düzenle",
+      "Add": "Ekle",
+      "Remove": "Kaldır",
+      "Browse": "Gözat",
+      "Select": "Seç",
+      "Create": "Oluştur",
+      "Open": "Aç",
+      "Close": "Kapat",
+      "Exit": "Çıkış",
+      "Settings": "Ayarlar",
+      "Help": "Yardım",
+      "About": "Hakkında",
+      "Version": "Sürüm",
+      "Error": "Hata",
+      "Warning": "Uyarı",
+      "Info": "Bilgi",
+      "Success": "Başarılı"
+    },
+    "MainWindow": {
+      "Title": "CommInstall Builder",
+      "FileModule": "Dosya Modülü",
+      "RegistryModule": "Kayıt Defteri Modülü",
+      "ExtensionModule": "Uzantı Modülü",
+      "ShortcutModule": "Kısayol Modülü",
+      "EulaModule": "EULA Modülü",
+      "UninstallModule": "Kaldırma Modülü",
+      "AutoStartModule": "Otomatik Başlatma Modülü"
+    },
+    "Modules": {
+      "FileModule": {
+        "Title": "Dosya Kurulumu",
+        "Description": "Kurulacak dosyaları yapılandır"
+      },
+      "RegistryModule": {
+        "Title": "Kayıt Defteri Yapılandırması",
+        "Description": "Kayıt defteri anahtarlarını ve değerlerini yapılandır"
+      },
+      "ExtensionModule": {
+        "Title": "Dosya Uzantıları",
+        "Description": "Dosya uzantısı ilişkilerini yapılandır"
+      },
+      "ShortcutModule": {
+        "Title": "Kısayollar",
+        "Description": "Masaüstü ve başlat menüsü kısayollarını yapılandır"
+      },
+      "EulaModule": {
+        "Title": "EULA",
+        "Description": "Son Kullanıcı Lisans Sözleşmesini yapılandır"
+      },
+      "UninstallModule": {
+        "Title": "Kaldırma",
+        "Description": "Kaldırma seçeneklerini yapılandır"
+      },
+      "AutoStartModule": {
+        "Title": "Otomatik Başlatma",
+        "Description": "Otomatik başlatma seçeneklerini yapılandır"
+      }
+    },
+    "ProjectWizard": {
+      "Title": "CommInstall Proje Sihirbazı",
+      "Welcome": "CommInstall Builder'a Hoş Geldiniz",
+      "CreateNewProject": "Yeni Proje Oluştur",
+      "OpenExistingProject": "Mevcut Projeyi Aç",
+      "RecentProjects": "Son Projeler",
+      "NoRecentProjects": "Son proje bulunamadı"
+    },
+    "SplashScreen": {
+      "Loading": "Yükleniyor...",
+      "Initializing": "Başlatılıyor...",
+      "LoadingModules": "Modüller yükleniyor...",
+      "Ready": "Hazır!"
+    },
+    "Settings": {
+      "Title": "Ayarlar",
+      "Language": "Dil",
+      "Theme": "Tema",
+      "Dark": "Koyu",
+      "Light": "Açık",
+      "AutoSave": "Otomatik Kaydet",
+      "CheckUpdates": "Güncellemeleri Kontrol Et",
+      "ShowTooltips": "İpucu Göster",
+      "EnableAnimations": "Animasyonları Etkinleştir",
+      "GitHubUsername": "GitHub Kullanıcı Adı",
+      "Save": "Ayarları Kaydet",
+      "Reset": "Varsayılana Sıfırla"
+    },
+    "Messages": {
+      "ProjectCreated": "Proje başarıyla oluşturuldu!",
+      "ProjectOpened": "Proje başarıyla açıldı!",
+      "SettingsSaved": "Ayarlar başarıyla kaydedildi!",
+      "ErrorOccurred": "Bir hata oluştu",
+      "ConfirmReset": "Tüm ayarları varsayılan değerlere sıfırlamak istediğinizden emin misiniz?"
+    }
+  }
+}

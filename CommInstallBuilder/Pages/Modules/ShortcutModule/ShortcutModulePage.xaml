@@ -1,0 +1,270 @@
+<UserControl x:Class="CommInstallBuilder.Pages.Modules.ShortcutModule.ShortcutModulePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource PrimaryBrush}"
+                                        Margin="-16,-16,-16,0"
+                                        Padding="16,8">
+                                    <TextBlock Text="{TemplateBinding Header}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               FontSize="14"/>
+                                </Border>
+                                
+                                <ContentPresenter Grid.Row="1" 
+                                                Margin="0,8,0,0"
+                                                Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="🔗 Shortcuts Configuration" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource TextBrush}"/>
+                
+                <!-- Desktop Shortcut -->
+                <GroupBox Header="Desktop Shortcut" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="CreateDesktopShortcutCheckBox" 
+                                  Content="Create desktop shortcut" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Shortcut Name:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="DesktopShortcutNameTextBox" 
+                                     Grid.Column="1"
+                                     Text="CommInstall"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"/>
+                        </Grid>
+                        
+                        <TextBlock Text="This shortcut will be created on the user's desktop" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Start Menu Shortcut -->
+                <GroupBox Header="Start Menu Shortcut" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="CreateStartMenuShortcutCheckBox" 
+                                  Content="Create start menu shortcut" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Program Group:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="StartMenuGroupTextBox" 
+                                     Grid.Column="1"
+                                     Text="CommInstall"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"/>
+                        </Grid>
+                        
+                        <TextBlock Text="This shortcut will be created in the Start Menu Programs folder" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Quick Launch Shortcut -->
+                <GroupBox Header="Quick Launch Shortcut" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="CreateQuickLaunchShortcutCheckBox" 
+                                  Content="Create quick launch shortcut" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <TextBlock Text="This shortcut will be created in the Quick Launch toolbar (Windows 7 and earlier)" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Shortcut Properties -->
+                <GroupBox Header="Shortcut Properties" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Description:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="ShortcutDescriptionTextBox" 
+                                     Grid.Column="1"
+                                     Text="CommInstall - Modern Installer Creation Tool"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"/>
+                        </Grid>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Working Directory:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="WorkingDirectoryTextBox" 
+                                     Grid.Column="1"
+                                     Text="%INSTALLDIR%"
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Use %INSTALLDIR% for the installation directory" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Advanced Options -->
+                <GroupBox Header="Advanced Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="RunAsAdminCheckBox" 
+                                  Content="Run shortcut as administrator" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <CheckBox x:Name="RemoveShortcutsOnUninstallCheckBox" 
+                                  Content="Remove shortcuts during uninstallation" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="CreateForAllUsersCheckBox" 
+                                  Content="Create shortcuts for all users (requires admin)" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Summary -->
+                <GroupBox Header="Shortcuts Summary" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="📋 Shortcuts to be created:" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <TextBlock x:Name="ShortcutsSummaryTextBlock" 
+                                   Text="• Start Menu: CommInstall (CommInstall group)&#x0a;&#x0a;No other shortcuts configured yet." 
+                                   FontSize="14" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

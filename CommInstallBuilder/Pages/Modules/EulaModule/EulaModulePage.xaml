@@ -1,0 +1,284 @@
+<UserControl x:Class="CommInstallBuilder.Pages.Modules.EulaModule.EulaModulePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource PrimaryBrush}"
+                                        Margin="-16,-16,-16,0"
+                                        Padding="16,8">
+                                    <TextBlock Text="{TemplateBinding Header}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               FontSize="14"/>
+                                </Border>
+                                
+                                <ContentPresenter Grid.Row="1" 
+                                                Margin="0,8,0,0"
+                                                Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="📜 EULA/License Configuration" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource TextBrush}"/>
+                
+                <!-- EULA File -->
+                <GroupBox Header="EULA File" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="License File:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <TextBox x:Name="EulaFileTextBox" 
+                                     Grid.Column="1"
+                                     Text="Select EULA file..."
+                                     Background="{DynamicResource CardBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource BorderBrush}"
+                                     Padding="8,6"
+                                     Margin="0,0,10,0"
+                                     IsReadOnly="True"/>
+                            
+                            <Button Content="Browse" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Select a text file (.txt) or rich text file (.rtf) containing your license agreement" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- EULA Display Options -->
+                <GroupBox Header="EULA Display Options" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="ShowEulaCheckBox" 
+                                  Content="Show EULA during installation" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="RequireAcceptanceCheckBox" 
+                                  Content="Require user to accept EULA" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="ShowEulaBeforeInstallCheckBox" 
+                                  Content="Show EULA before file installation" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"
+                                  IsChecked="True"/>
+                        
+                        <CheckBox x:Name="SaveEulaAcceptanceCheckBox" 
+                                  Content="Save EULA acceptance in registry" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- EULA Text Preview -->
+                <GroupBox Header="EULA Text Preview" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Preview of your EULA text:" 
+                                   FontSize="14" 
+                                   FontWeight="Medium"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <Border Background="{DynamicResource CardBrush}" 
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                Padding="12"
+                                Height="200">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock x:Name="EulaPreviewTextBlock" 
+                                           Text="No EULA file selected. Please browse and select a license file to see the preview here." 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </ScrollViewer>
+                        </Border>
+                        
+                        <TextBlock Text="This is how the EULA will appear to users during installation" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Custom EULA Text -->
+                <GroupBox Header="Custom EULA Text" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Or enter custom EULA text directly:" 
+                                   FontSize="14" 
+                                   FontWeight="Medium"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <TextBox x:Name="CustomEulaTextBox" 
+                                 Height="150"
+                                 Text="Enter your license agreement text here..."
+                                 Background="{DynamicResource CardBrush}"
+                                 Foreground="{DynamicResource TextBrush}"
+                                 BorderBrush="{DynamicResource BorderBrush}"
+                                 Padding="12"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"/>
+                        
+                        <TextBlock Text="This text will override the file selection above" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Language Support -->
+                <GroupBox Header="Multi-Language Support" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="MultiLanguageEulaCheckBox" 
+                                  Content="Support multiple languages for EULA" 
+                                  FontSize="14" 
+                                  Foreground="{DynamicResource TextBrush}"
+                                  Margin="0,8"/>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Language:" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            
+                            <ComboBox x:Name="LanguageComboBox" 
+                                      Grid.Column="1"
+                                      SelectedIndex="0"
+                                      Background="{DynamicResource CardBrush}"
+                                      Foreground="{DynamicResource TextBrush}"
+                                      BorderBrush="{DynamicResource BorderBrush}"
+                                      Margin="0,0,10,0">
+                                <ComboBoxItem Content="English (en)" Tag="en"/>
+                                <ComboBoxItem Content="Türkçe (tr)" Tag="tr"/>
+                                <ComboBoxItem Content="Deutsch (de)" Tag="de"/>
+                                <ComboBoxItem Content="Français (fr)" Tag="fr"/>
+                            </ComboBox>
+                            
+                            <Button Content="Add Language" 
+                                    Grid.Column="2"
+                                    Background="{DynamicResource PrimaryBrush}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Padding="16,8"
+                                    Cursor="Hand"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Add EULA text in different languages for international users" 
+                                   FontSize="12" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Summary -->
+                <GroupBox Header="EULA Configuration Summary" 
+                          Margin="0,0,0,20"
+                          Foreground="{DynamicResource TextBrush}"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Style="{StaticResource ModernGroupBoxStyle}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="📋 Current Configuration:" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        
+                        <TextBlock x:Name="EulaSummaryTextBlock" 
+                                   Text="• EULA will be shown during installation&#x0a;• User acceptance required&#x0a;• EULA shown before file installation&#x0a;&#x0a;No EULA file selected yet." 
+                                   FontSize="14" 
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

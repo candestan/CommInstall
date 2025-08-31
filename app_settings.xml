@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Language>tr</Language>
+  <Theme>light</Theme>
+  <AutoSave>true</AutoSave>
+  <CheckUpdates>true</CheckUpdates>
+  <ShowTooltips>true</ShowTooltips>
+  <EnableAnimations>true</EnableAnimations>
+  <GitHubUsername>candestan</GitHubUsername>
+</AppSettings>
